@@ -6,4 +6,4 @@ Based off of the original and awesome mysql2 repository.
 
 ## Installation
 
-    `gem install activerecord-hbase-adapter`
+    gem install activerecord-hbase-adapter

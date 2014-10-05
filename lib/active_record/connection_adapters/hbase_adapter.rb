@@ -3,9 +3,10 @@ require 'active_record/connection_adapters/hbase/error'
 require 'active_record/connection_adapters/hbase/result'
 require 'active_record/connection_adapters/hbase/client'
 
-$LOAD_PATH.unshift '/home/jean/adapter/lib/mysql2/lib'
-
-require 'mysql2'
+### FOR DEBUGGING ONLY ###
+#$LOAD_PATH.unshift '/home/jean/adapter/lib/mysql2/lib'
+#require 'mysql2'
+### FOR DEBUGGING ONLY ###
 
 require 'hipster_sql_to_hbase'
 
@@ -16,13 +17,17 @@ module ActiveRecord
       config = config.symbolize_keys
 
       config[:username] = 'root' if config[:username].nil?
-
-      if Mysql2::Client.const_defined? :FOUND_ROWS
-        config[:flags] = Mysql2::Client::FOUND_ROWS
-      end
-
+      
+      ### FOR DEBUGGING ONLY ###
+      #if Mysql2::Client.const_defined? :FOUND_ROWS
+      #  config[:flags] = Mysql2::Client::FOUND_ROWS
+      #end
+      #config[:host] = config[:m2host]
+      #config[:port] = config[:m2port]
       #client = Mysql2::Client.new(config)
-      client = HbaseRestIface::Client.new(:host => config[:hb_host], :port => config[:hb_port])
+      ### FOR DEBUGGING ONLY ###
+      
+      client = HbaseRestIface::Client.new(config)
       options = [config[:host], config[:username], config[:password], config[:database], config[:port], config[:socket], 0]
       ConnectionAdapters::HbaseAdapter.new(client, logger, options, config)
     rescue Hbase::Error => error

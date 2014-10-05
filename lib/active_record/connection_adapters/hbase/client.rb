@@ -26,21 +26,22 @@ module HbaseRestIface
     end
     
     def query(sql)
-      File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!query\n#{sql}") }
+      #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!query\n#{sql}") }
       query_object = HipsterSqlToHbase.parse_hash(sql)
-      File.open('/tmp/thing.txt', 'a') { |file| file.write("\n#{query_object.inspect}") }
+      #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n#{query_object.inspect}") }
       begin
+        #TODO: make these be msgpack instead of json
         result = secure_request("/exec", { body: {query: JSON.generate(query_object)} })
         Hbase::Result.new(result)
       rescue Exception => e  
-        File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!error\n#{e.message}") }
+        #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!error\n#{e.message}") }
         Hbase::Result.new()
       end
     end
     
     def connect
       self.class.base_uri "#{@ops[:host]}:#{@ops[:port]}"
-      File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!connect\n#{@ops[:host]}:#{@ops[:port]}") }
+      #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!connect\n#{@ops[:host]}:#{@ops[:port]}") }
       ping
     end
     
@@ -56,10 +57,11 @@ module HbaseRestIface
       end
       
       if response.code.to_s =~ /2\d\d/
+        #TODO: make these be msgpack instead of json
         JSON.parse(response.body)
       else
         error = Nokogiri::HTML(response.body)
-        binding.pry
+        #binding.pry
         raise error.css("title")[0].text
       end
     end
@@ -72,10 +74,11 @@ module HbaseRestIface
       end
       
       if response.code.to_s =~ /2\d\d/
+        #TODO: make these be msgpack instead of json
         JSON.parse(response.body)
       else
         error = Nokogiri::HTML(response.body)
-        binding.pry
+        #binding.pry
         raise error.css("title")[0].text
       end
     end

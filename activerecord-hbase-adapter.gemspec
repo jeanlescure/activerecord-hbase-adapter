@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
                         'activerecord-hbase-adapter.gemspec',
                         'lib/activerecord-hbase-adapter/version.rb',
                         'lib/active_record/connection_adapters/hbase_adapter.rb',
-                        'active_record/connection_adapters/abstract_mysql_adapter.rb',
+                        'lib/active_record/connection_adapters/abstract_mysql_adapter.rb',
                         'lib/active_record/connection_adapters/hbase/error.rb',
                         'lib/active_record/connection_adapters/hbase/result.rb',
                         'lib/active_record/connection_adapters/hbase/client.rb']

@@ -11,8 +11,12 @@ Gem::Specification.new do |gem|
   gem.files         = [ 'Gemfile',
                         'activerecord-hbase-adapter.gemspec',
                         'lib/activerecord-hbase-adapter/version.rb',
-                        'lib/active_record/connection_adapters/hbase_adapter.rb']
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+                        'lib/active_record/connection_adapters/hbase_adapter.rb',
+                        'active_record/connection_adapters/abstract_mysql_adapter.rb',
+                        'lib/active_record/connection_adapters/hbase/error.rb',
+                        'lib/active_record/connection_adapters/hbase/result.rb',
+                        'lib/active_record/connection_adapters/hbase/client.rb']
+  #gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "activerecord-hbase-adapter"
   gem.require_paths = ["lib"]
   gem.version       = Activerecord::Hbase::Adapter::VERSION
@@ -24,14 +28,17 @@ Gem::Specification.new do |gem|
       gem.add_runtime_dependency(%q<hipster_sql_to_hbase>, [">= 0"])
       gem.add_runtime_dependency(%q<httparty>, [">= 0"])
       gem.add_runtime_dependency(%q<msgpack>, [">= 0"])
+      gem.add_runtime_dependency(%q<nokogiri>, [">= 0"])
     else
       gem.add_dependency(%q<hipster_sql_to_hbase>, [">= 0"])
       gem.add_dependency(%q<httparty>, [">= 0"])
       gem.add_dependency(%q<msgpack>, [">= 0"])
+      gem.add_dependency(%q<nokogiri>, [">= 0"])
     end
   else
     gem.add_dependency(%q<hipster_sql_to_hbase>, [">= 0"])
     gem.add_dependency(%q<httparty>, [">= 0"])
     gem.add_dependency(%q<msgpack>, [">= 0"])
+    gem.add_dependency(%q<nokogiri>, [">= 0"])
   end
 end

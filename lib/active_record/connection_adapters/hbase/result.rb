@@ -5,6 +5,13 @@ module Hbase
     include Enumerable
     
     attr_accessor :members
+    
+    ### Keeping this just in case, for now
+    # def self.new(result = {'fields' => [], 'results' => []})
+    #   return nil if result['fields'].length < 1 && result['results'].length < 1
+    #   
+    #   super
+    # end
   
     def initialize(result = {'fields' => [], 'results' => []})
       @result = result

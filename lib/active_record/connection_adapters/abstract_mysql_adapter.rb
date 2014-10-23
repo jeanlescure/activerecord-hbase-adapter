@@ -304,7 +304,7 @@ module ActiveRecord
         #result = @connection.query('SELECT `mythings`.* FROM `mythings`')
         result = @connection.query(sql)
         File.open('/tmp/thing.txt', 'a') { |file| file.write("\n#{result.inspect}") }
-        #binding.pry
+        #binding.pry if sql == "SHOW FULL FIELDS FROM `schema_migrations`"
         #puts $the_e.inspect
         log(sql, name) { result }
       end

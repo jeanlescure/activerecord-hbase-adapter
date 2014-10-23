@@ -26,16 +26,15 @@ module HbaseRestIface
     end
     
     def query(sql)
-      #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!query\n#{sql}") }
+      File.open('/tmp/thing.txt', 'a') { |file| file.write("\n!!query\n#{sql}") }
       query_object = HipsterSqlToHbase.parse_hash(sql)
-      #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n#{query_object.inspect}") }
+      File.open('/tmp/thing.txt', 'a') { |file| file.write("\n#{query_object.inspect}") }
       begin
-        #TODO: make these be msgpack instead of json
-        result = secure_request("/exec", { body: {query: JSON.generate(query_object)} })
-        Hbase::Result.new(result)
-      rescue Exception => e  
+        result = secure_request("/exec", { body: {query: MessagePack.pack(query_object)} })
+        Hbase::Result.new(result) unless result.nil?
+      rescue Exception => e
         #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!error\n#{e.message}") }
-        Hbase::Result.new()
+        nil
       end
     end
     
@@ -57,8 +56,7 @@ module HbaseRestIface
       end
       
       if response.code.to_s =~ /2\d\d/
-        #TODO: make these be msgpack instead of json
-        JSON.parse(response.body)
+        MessagePack.unpack(response.body)
       else
         error = Nokogiri::HTML(response.body)
         #binding.pry
@@ -74,8 +72,7 @@ module HbaseRestIface
       end
       
       if response.code.to_s =~ /2\d\d/
-        #TODO: make these be msgpack instead of json
-        JSON.parse(response.body)
+        MessagePack.unpack(response.body)
       else
         error = Nokogiri::HTML(response.body)
         #binding.pry

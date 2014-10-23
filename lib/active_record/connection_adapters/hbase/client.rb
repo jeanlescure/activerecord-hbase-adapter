@@ -33,7 +33,7 @@ module HbaseRestIface
         result = secure_request("/exec", { body: {query: MessagePack.pack(query_object)} })
         Hbase::Result.new(result) unless result.nil?
       rescue Exception => e
-        #File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!error\n#{e.message}") }
+        File.open('/tmp/thing.txt', 'a') { |file| file.write("\n\n!!!error\n#{e.message}") }
         nil
       end
     end

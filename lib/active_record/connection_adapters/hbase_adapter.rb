@@ -1,4 +1,5 @@
 require 'active_record/connection_adapters/abstract_mysql_adapter'
+require 'active_record/connection_adapters/hbase/time'
 require 'active_record/connection_adapters/hbase/error'
 require 'active_record/connection_adapters/hbase/result'
 require 'active_record/connection_adapters/hbase/client'
